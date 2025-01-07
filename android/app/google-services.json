@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "565824484141",
+    "project_id": "faramawy-4a899",
+    "storage_bucket": "faramawy-4a899.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:565824484141:android:d5a5d23fb0c6f0bd29d9a4",
+        "android_client_info": {
+          "package_name": "com.example.furniture_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFkSNhoJaGWBU9RTMjduv4AZCuGyH-K8A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
