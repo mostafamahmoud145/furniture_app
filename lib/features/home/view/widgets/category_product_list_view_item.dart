@@ -29,8 +29,8 @@ class CategoryProductItemWidget extends StatelessWidget {
                   color: Colors.white,
                 ),
                 width: double.infinity,
-                child: Image.asset(
-                  imageUrl,
+                child: Image.network(
+                  "https://xeannllsijuvfdjasizd.supabase.co/storage/v1/object/sign/banner/1.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJiYW5uZXIvMS5wbmciLCJpYXQiOjE3MzYzNjI1NTUsImV4cCI6NjM5MzAxMTMzODU1NX0.4GTY5DIZnrG5z1oSG3VsvN7Qjzm_9K_hUht5UPtiL-8&t=2025-01-08T18%3A55%3A55.931Z",
                 ),
               ),
             ),

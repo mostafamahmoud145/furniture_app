@@ -10,7 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   go_router: ^14.3.0
-  cached_network_image: ^3.2.1
+  cached_network_image: ^3.4.1
   flutter_svg: ^2.0.13
   device_preview: ^1.2.0
   palette_generator: ^0.3.3+5
@@ -22,8 +22,7 @@ dependencies:
   image_picker_for_web: ^3.0.6
   supabase_flutter: ^2.8.3
   flutter_bloc: ^8.1.6
-
-
+  firebase_pagination: ^4.1.0
 
 dev_dependencies:
   flutter_test:

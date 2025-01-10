@@ -22,7 +22,10 @@ class ProductModel {
       description: json['description'],
       price: json['price'],
       id: json['id'],
-      images: json['images'],
+      images: (json['images'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          [],
       isBestSeller: json['isBestSeller'],
       productCode: json['productCode'],
     );

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 import 'package:furniture_app/features/products/data/models/product_model.dart';
-import 'package:furniture_app/features/products/data/repos/image_repository.dart';
-import 'package:furniture_app/features/products/data/repos/product_repository.dart';
+import 'package:furniture_app/features/dashboard/products/data/repos/product_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'dart:typed_data';
 import 'package:uuid/uuid.dart';
@@ -11,11 +10,9 @@ part 'product_submission_state.dart';
 
 class ProductSubmissionCubit extends Cubit<ProductSubmissionState> {
   final ProductRepository productRepository;
-  final ImageRepository imageRepository;
 
   ProductSubmissionCubit({
     required this.productRepository,
-    required this.imageRepository,
   }) : super(ProductSubmissionInitial());
 
   Future<void> submitProduct({
@@ -27,7 +24,7 @@ class ProductSubmissionCubit extends Cubit<ProductSubmissionState> {
     required String productCode,
     Uint8List? mainImage,
     List<Uint8List?> optionalImages = const [null, null, null],
-    List<String> existingImageUrls = const [],
+    required List<String> existingImageUrls,
   }) async {
     emit(ProductSubmissionLoading());
 
@@ -38,14 +35,14 @@ class ProductSubmissionCubit extends Cubit<ProductSubmissionState> {
       if (mainImage != null) {
         // Delete old main image if exists
         if (existingImageUrls.isNotEmpty) {
-          await imageRepository.deleteImage(
+          await productRepository.deleteImage(
             _extractFilePath(existingImageUrls.first),
           );
         }
         // Upload new main image
-        final mainImageUrl = await imageRepository.uploadImage(
+        final mainImageUrl = await productRepository.uploadImage(
           mainImage,
-          'main_image_${id.isEmpty ? DateTime.now().millisecondsSinceEpoch : id}.jpg',
+          'main_image_${DateTime.now().millisecondsSinceEpoch}.jpg',
         );
         uploadedImageUrls.add(mainImageUrl!);
       } else if (existingImageUrls.isNotEmpty) {
@@ -57,14 +54,14 @@ class ProductSubmissionCubit extends Cubit<ProductSubmissionState> {
         if (optionalImages[i] != null) {
           // Delete old optional image if exists
           if (existingImageUrls.length > i + 1) {
-            await imageRepository.deleteImage(
+            await productRepository.deleteImage(
               _extractFilePath(existingImageUrls[i + 1]),
             );
           }
           // Upload new optional image
-          final optionalImageUrl = await imageRepository.uploadImage(
+          final optionalImageUrl = await productRepository.uploadImage(
             optionalImages[i]!,
-            'optional_image_${id.isEmpty ? DateTime.now().millisecondsSinceEpoch : id}_$i.jpg',
+            'optional_image_${DateTime.now().millisecondsSinceEpoch}_$i.jpg',
           );
           uploadedImageUrls.add(optionalImageUrl!);
         } else if (existingImageUrls.length > i + 1) {
