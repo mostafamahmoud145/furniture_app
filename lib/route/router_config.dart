@@ -41,7 +41,12 @@ class RouteConfig {
           path: '/addProduct',
           name: RoutersNames.addProduct,
           pageBuilder: (context, state) {
-            var args = state.extra != null ? state.extra as ProductModel : null;
+            ProductModel? args;
+            if (state.extra != null) {
+              if (state.extra is ProductModel) {
+                args = state.extra as ProductModel;
+              }
+            }
             return MaterialPage(
                 child: AddProductPage(
               product: args,
@@ -52,8 +57,12 @@ class RouteConfig {
           path: '/addCategory',
           name: RoutersNames.addCategory,
           pageBuilder: (context, state) {
-            var args =
-                state.extra != null ? state.extra as CategoryModel : null;
+            CategoryModel? args;
+            if (state.extra != null) {
+              if (state.extra is CategoryModel) {
+                args = state.extra as CategoryModel;
+              }
+            }
             return MaterialPage(
                 child: AddCategoryPage(
               category: args,
@@ -64,7 +73,12 @@ class RouteConfig {
           path: '/addBanner',
           name: RoutersNames.addBanner,
           pageBuilder: (context, state) {
-            var args = state.extra != null ? state.extra as BannerModel : null;
+            BannerModel? args;
+            if (state.extra != null) {
+              if (state.extra is BannerModel) {
+                args = state.extra as BannerModel;
+              }
+            }
             return MaterialPage(
                 child: AddBannerPage(
               banner: args,

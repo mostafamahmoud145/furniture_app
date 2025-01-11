@@ -19,6 +19,7 @@ class _ViewBannersPageState extends State<ViewBannersPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text('Banners'),
         actions: [
           IconButton(
@@ -49,7 +50,7 @@ class _ViewBannersPageState extends State<ViewBannersPage> {
               },
               title: Text("ID: ${bannerModel.id}"),
               leading: FadeInImage.assetNetwork(
-                placeholder: 'icons/load.gif',
+                placeholder: 'assets/icons/load.gif',
                 image: bannerModel.imageUrl,
                 height: 150,
                 width: 150,

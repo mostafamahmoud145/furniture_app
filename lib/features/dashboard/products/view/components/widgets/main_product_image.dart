@@ -29,7 +29,7 @@ class MainProductImage extends StatelessWidget {
                       width: 150, height: 150, fit: BoxFit.cover)
                   : state.existingImageUrls.isNotEmpty
                       ? FadeInImage.assetNetwork(
-                          placeholder: 'icons/load.gif',
+                          placeholder: 'assets/icons/load.gif',
                           image: state.existingImageUrls[0],
                           height: 150,
                           width: 150,

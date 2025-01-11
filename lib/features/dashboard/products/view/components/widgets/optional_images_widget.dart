@@ -41,7 +41,7 @@ class OptionalImagesWidget extends StatelessWidget {
                           width: 100, height: 100, fit: BoxFit.cover)
                       : imageUrl != null
                           ? FadeInImage.assetNetwork(
-                              placeholder: 'icons/load.gif',
+                              placeholder: 'assets/icons/load.gif',
                               image: imageUrl,
                               height: 100,
                               width: 100,

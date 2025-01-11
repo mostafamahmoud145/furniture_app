@@ -54,6 +54,7 @@ class AddBannerPage extends StatelessWidget {
         builder: (context, submissionState) {
           return Scaffold(
             appBar: AppBar(
+              automaticallyImplyLeading: false,
               title: Text(banner == null ? 'Add Banner' : 'Edit Banner'),
             ),
             body: Padding(

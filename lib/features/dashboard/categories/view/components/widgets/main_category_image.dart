@@ -5,7 +5,6 @@ import 'package:furniture_app/features/dashboard/categories/view_model/category_
 class MainCategoryImage extends StatelessWidget {
   const MainCategoryImage({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CategoryFormCubit, CategoryFormState>(
@@ -21,7 +20,7 @@ class MainCategoryImage extends StatelessWidget {
                 )
               : state.imageUrl.isNotEmpty
                   ? FadeInImage.assetNetwork(
-                      placeholder: 'icons/load.gif',
+                      placeholder: 'assets/icons/load.gif',
                       image: state.imageUrl,
                       height: 100,
                       width: 100,

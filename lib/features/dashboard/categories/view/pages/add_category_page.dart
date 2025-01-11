@@ -57,6 +57,7 @@ class AddCategoryPage extends StatelessWidget {
 
           return Scaffold(
             appBar: AppBar(
+              automaticallyImplyLeading: false,
               title: Text(category == null ? 'Add Category' : 'Edit Category'),
             ),
             body: Padding(

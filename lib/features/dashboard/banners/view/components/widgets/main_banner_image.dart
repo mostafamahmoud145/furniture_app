@@ -20,7 +20,7 @@ class MainBannerImage extends StatelessWidget {
                 )
               : state.imageUrl.isNotEmpty
                   ? FadeInImage.assetNetwork(
-                      placeholder: 'icons/load.gif',
+                      placeholder: 'assets/icons/load.gif',
                       image: state.imageUrl,
                       height: 100,
                       width: 100,

@@ -19,6 +19,7 @@ class _ViewProductsPageState extends State<ViewProductsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text('Products'),
         actions: [
           IconButton(

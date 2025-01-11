@@ -19,6 +19,7 @@ class _ViewCategoriesPageState extends State<ViewCategoriesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text('Categories'),
         actions: [
           IconButton(
