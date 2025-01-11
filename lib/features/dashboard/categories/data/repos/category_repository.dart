@@ -12,6 +12,32 @@ class CategoryRepository {
       : _firestore = FirebaseFirestore.instance,
         _supabaseClient = Supabase.instance.client;
 
+  Future<List<CategoryModel>> getCategories() async {
+    try {
+      final QuerySnapshot<Map<String, dynamic>> snapshot =
+          await _firestore.collection('Categories').get();
+
+      if (snapshot.docs.isEmpty) {
+        return const []; // Return an empty list if no documents found
+      }
+
+      return snapshot.docs
+          .map((doc) {
+            try {
+              return CategoryModel.fromJson(doc.data());
+            } catch (e) {
+              // Skip the item if mapping fails
+              print('Skipping document ${doc.id} due to error: $e');
+              return null;
+            }
+          })
+          .whereType<CategoryModel>() // Filters out null items
+          .toList();
+    } catch (e) {
+      throw Exception('Failed to fetch banners: $e');
+    }
+  }
+
   /// Add a new category to Firestore
   Future<void> addCategory(CategoryModel category) async {
     try {

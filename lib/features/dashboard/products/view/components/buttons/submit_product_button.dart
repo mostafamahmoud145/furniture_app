@@ -30,6 +30,7 @@ class SubmitProductButton extends StatelessWidget {
                 price: state.price,
                 isBestSeller: state.isBestSeller,
                 productCode: state.productCode,
+                categoryId: state.categoryId!,
                 mainImage: state.mainImage,
                 optionalImages: state.optionalImages,
                 existingImageUrls: state.existingImageUrls,

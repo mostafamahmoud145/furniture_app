@@ -6,6 +6,7 @@ class ProductModel {
   List<String> images;
   bool isBestSeller;
   String productCode;
+  String categoryId;
   ProductModel({
     required this.name,
     required this.description,
@@ -14,6 +15,7 @@ class ProductModel {
     required this.images,
     required this.isBestSeller,
     required this.productCode,
+    required this.categoryId,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
@@ -28,6 +30,7 @@ class ProductModel {
           [],
       isBestSeller: json['isBestSeller'],
       productCode: json['productCode'],
+      categoryId: json['categoryId'],
     );
   }
 
@@ -40,6 +43,7 @@ class ProductModel {
       'images': images,
       'isBestSeller': isBestSeller,
       'productCode': productCode,
+      'categoryId': categoryId
     };
   }
 }

@@ -22,6 +22,7 @@ class ProductSubmissionCubit extends Cubit<ProductSubmissionState> {
     required num price,
     required bool isBestSeller,
     required String productCode,
+    required String categoryId,
     Uint8List? mainImage,
     List<Uint8List?> optionalImages = const [null, null, null],
     required List<String> existingImageUrls,
@@ -78,6 +79,7 @@ class ProductSubmissionCubit extends Cubit<ProductSubmissionState> {
         images: uploadedImageUrls,
         isBestSeller: isBestSeller,
         productCode: productCode,
+        categoryId: categoryId,
       );
 
       // Determine Add or Update

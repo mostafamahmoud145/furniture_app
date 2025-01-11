@@ -5,17 +5,12 @@ import 'package:furniture_app/features/dashboard/banners/view/pages/view_banners
 import 'package:furniture_app/features/dashboard/categories/data/model/category_model.dart';
 import 'package:furniture_app/features/dashboard/categories/view/pages/add_category_page.dart';
 import 'package:furniture_app/features/dashboard/categories/view/pages/view_categories_page.dart';
-import 'package:furniture_app/features/home/view/pages/home_page.dart';
+import 'package:furniture_app/features/dashboard/dashboard_page.dart';
+import 'package:furniture_app/features/dashboard/login_page.dart';
 import 'package:furniture_app/features/products/data/models/product_model.dart';
 import 'package:furniture_app/features/dashboard/products/view/pages/add_product_page.dart';
-import 'package:furniture_app/features/products/view/pages/product_details_page.dart';
-import 'package:furniture_app/features/products/view/pages/products_page.dart';
 import 'package:furniture_app/features/dashboard/products/view/pages/view_products_page.dart';
 import 'package:furniture_app/route/routes_names.dart';
-import 'package:furniture_app/screen1.dart';
-import 'package:furniture_app/screen1_section1.dart';
-import 'package:furniture_app/screen2.dart';
-import 'package:furniture_app/screen3.dart';
 import 'package:go_router/go_router.dart';
 
 class RouteConfig {
@@ -76,48 +71,38 @@ class RouteConfig {
             ));
           }),
 
-      // GoRoute(
-      //   path: '/',
-      //   name: RoutersNames.viewProducts,
-      //   pageBuilder: (context, state) =>
-      //       const MaterialPage(child: ViewProductsPage()),
-      // ),
-
-      // GoRoute(
-      //   path: '/',
-      //   name: RoutersNames.viewCategories,
-      //   pageBuilder: (context, state) =>
-      //       const MaterialPage(child: ViewCategoriesPage()),
-      // ),
+      GoRoute(
+        path: '/viewProducts',
+        name: RoutersNames.viewProducts,
+        pageBuilder: (context, state) =>
+            const MaterialPage(child: ViewProductsPage()),
+      ),
 
       GoRoute(
-        path: '/',
+        path: '/viewCategories',
+        name: RoutersNames.viewCategories,
+        pageBuilder: (context, state) =>
+            const MaterialPage(child: ViewCategoriesPage()),
+      ),
+
+      GoRoute(
+        path: '/viewBanners',
         name: RoutersNames.viewBanners,
         pageBuilder: (context, state) =>
             const MaterialPage(child: ViewBannersPage()),
       ),
 
       GoRoute(
-          path: '/screen1',
-          name: RoutersNames.screen1,
-          pageBuilder: (context, state) => const MaterialPage(child: Screen1()),
-          routes: [
-            GoRoute(
-              path: 'section1',
-              name: RoutersNames.screen1Section1,
-              pageBuilder: (context, state) =>
-                  const MaterialPage(child: Screen1Section1()),
-            ),
-          ]),
-      GoRoute(
-        path: '/screen2',
-        name: RoutersNames.screen2,
-        pageBuilder: (context, state) => const MaterialPage(child: Screen2()),
+        path: '/dashboard',
+        name: RoutersNames.dashboard,
+        pageBuilder: (context, state) =>
+            const MaterialPage(child: DashboardPage()),
       ),
+
       GoRoute(
-        path: '/screen3',
-        name: RoutersNames.screen3,
-        pageBuilder: (context, state) => const MaterialPage(child: Screen3()),
+        path: '/',
+        name: RoutersNames.login,
+        pageBuilder: (context, state) => const MaterialPage(child: LoginPage()),
       ),
     ],
     errorBuilder: (context, state) => Scaffold(

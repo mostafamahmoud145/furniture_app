@@ -33,6 +33,7 @@ class ProductFormCubit extends Cubit<ProductFormState> {
     num? price,
     bool? isBestSeller,
     String? productCode,
+    String? categoryId,
     Uint8List? mainImage,
     List<Uint8List?>? optionalImages,
   }) {
@@ -42,6 +43,7 @@ class ProductFormCubit extends Cubit<ProductFormState> {
       price: price,
       isBestSeller: isBestSeller,
       productCode: productCode,
+      categoryId: categoryId,
       mainImage: mainImage,
       optionalImages: optionalImages,
     ));
