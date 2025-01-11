@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:furniture_app/features/dashboard/banners/data/model/banner_model.dart';
+import 'package:furniture_app/features/dashboard/banners/view/pages/add_banner_page.dart';
+import 'package:furniture_app/features/dashboard/banners/view/pages/view_banners_page.dart';
 import 'package:furniture_app/features/dashboard/categories/data/model/category_model.dart';
 import 'package:furniture_app/features/dashboard/categories/view/pages/add_category_page.dart';
 import 'package:furniture_app/features/dashboard/categories/view/pages/view_categories_page.dart';
@@ -62,6 +65,17 @@ class RouteConfig {
             ));
           }),
 
+      GoRoute(
+          path: '/addBanner',
+          name: RoutersNames.addBanner,
+          pageBuilder: (context, state) {
+            var args = state.extra != null ? state.extra as BannerModel : null;
+            return MaterialPage(
+                child: AddBannerPage(
+              banner: args,
+            ));
+          }),
+
       // GoRoute(
       //   path: '/',
       //   name: RoutersNames.viewProducts,
@@ -69,11 +83,18 @@ class RouteConfig {
       //       const MaterialPage(child: ViewProductsPage()),
       // ),
 
+      // GoRoute(
+      //   path: '/',
+      //   name: RoutersNames.viewCategories,
+      //   pageBuilder: (context, state) =>
+      //       const MaterialPage(child: ViewCategoriesPage()),
+      // ),
+
       GoRoute(
         path: '/',
-        name: RoutersNames.viewCategories,
+        name: RoutersNames.viewBanners,
         pageBuilder: (context, state) =>
-            const MaterialPage(child: ViewCategoriesPage()),
+            const MaterialPage(child: ViewBannersPage()),
       ),
 
       GoRoute(
