@@ -60,49 +60,51 @@ class AddCategoryPage extends StatelessWidget {
               automaticallyImplyLeading: false,
               title: Text(category == null ? 'Add Category' : 'Edit Category'),
             ),
-            body: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Form(
-                key: _formKey,
-                child: BlocBuilder<CategoryFormCubit, CategoryFormState>(
-                  builder: (context, formState) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // Category Name Field
-                        TextFormField(
-                          initialValue: formState.name,
-                          onChanged: (value) =>
-                              formCubit.updateField(name: value),
-                          decoration:
-                              const InputDecoration(labelText: 'Category Name'),
-                          validator: (value) {
-                            if (value == null || value.trim().isEmpty) {
-                              return 'Please enter the category name.';
-                            }
-                            return null;
-                          },
-                        ),
-
-                        /// <--- Vertical spacing --->
-                        const SizedBox(height: 20),
-
-                        // Category Image Picker
-                        const MainCategoryImage(),
-
-                        /// <--- Vertical spacing --->
-                        const SizedBox(height: 20),
-
-                        // Submit Button
-                        submissionState is CategorySubmissionLoading
-                            ? const Center(child: CircularProgressIndicator())
-                            : SubmitCategoryButton(
-                                category: category,
-                                formKey: _formKey,
-                              ),
-                      ],
-                    );
-                  },
+            body: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Form(
+                  key: _formKey,
+                  child: BlocBuilder<CategoryFormCubit, CategoryFormState>(
+                    builder: (context, formState) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Category Name Field
+                          TextFormField(
+                            initialValue: formState.name,
+                            onChanged: (value) =>
+                                formCubit.updateField(name: value),
+                            decoration:
+                                const InputDecoration(labelText: 'Category Name'),
+                            validator: (value) {
+                              if (value == null || value.trim().isEmpty) {
+                                return 'Please enter the category name.';
+                              }
+                              return null;
+                            },
+                          ),
+              
+                          /// <--- Vertical spacing --->
+                          const SizedBox(height: 20),
+              
+                          // Category Image Picker
+                          const MainCategoryImage(),
+              
+                          /// <--- Vertical spacing --->
+                          const SizedBox(height: 20),
+              
+                          // Submit Button
+                          submissionState is CategorySubmissionLoading
+                              ? const Center(child: CircularProgressIndicator())
+                              : SubmitCategoryButton(
+                                  category: category,
+                                  formKey: _formKey,
+                                ),
+                        ],
+                      );
+                    },
+                  ),
                 ),
               ),
             ),

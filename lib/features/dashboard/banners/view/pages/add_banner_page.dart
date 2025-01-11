@@ -57,31 +57,33 @@ class AddBannerPage extends StatelessWidget {
               automaticallyImplyLeading: false,
               title: Text(banner == null ? 'Add Banner' : 'Edit Banner'),
             ),
-            body: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Form(
-                key: _formKey,
-                child: BlocBuilder<BannerFormCubit, BannerFormState>(
-                  builder: (context, formState) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // Banner Image Picker
-                        const MainBannerImage(),
-
-                        /// <--- Vertical spacing --->
-                        const SizedBox(height: 20),
-
-                        // Submit Button
-                        submissionState is BannerSubmissionLoading
-                            ? const Center(child: CircularProgressIndicator())
-                            : SubmitBannerButton(
-                                banner: banner,
-                                formKey: _formKey,
-                              ),
-                      ],
-                    );
-                  },
+            body: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Form(
+                  key: _formKey,
+                  child: BlocBuilder<BannerFormCubit, BannerFormState>(
+                    builder: (context, formState) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Banner Image Picker
+                          const MainBannerImage(),
+              
+                          /// <--- Vertical spacing --->
+                          const SizedBox(height: 20),
+              
+                          // Submit Button
+                          submissionState is BannerSubmissionLoading
+                              ? const Center(child: CircularProgressIndicator())
+                              : SubmitBannerButton(
+                                  banner: banner,
+                                  formKey: _formKey,
+                                ),
+                        ],
+                      );
+                    },
+                  ),
                 ),
               ),
             ),

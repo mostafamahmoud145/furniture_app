@@ -16,38 +16,45 @@ class DashboardPage extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            _buildDashboardCard(
-              context,
-              title: "Banners",
-              icon: Icons.image,
-              color: Colors.blue,
-              onTap: () {
-                GoRouter.of(context).push(RoutersNames.viewBanners);
-              },
-            ),
-            const SizedBox(height: 16),
-            _buildDashboardCard(
-              context,
-              title: "Products",
-              icon: Icons.shopping_cart,
-              color: Colors.green,
-              onTap: () {
-                GoRouter.of(context).push(RoutersNames.viewProducts);
-              },
-            ),
-            const SizedBox(height: 16),
-            _buildDashboardCard(
-              context,
-              title: "Categories",
-              icon: Icons.category,
-              color: Colors.orange,
-              onTap: () {
-                GoRouter.of(context).push(RoutersNames.viewCategories);
-              },
+        child: CustomScrollView(
+          slivers: [
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  _buildDashboardCard(
+                    context,
+                    title: "Banners",
+                    icon: Icons.image,
+                    color: Colors.blue,
+                    onTap: () {
+                      GoRouter.of(context).push(RoutersNames.viewBanners);
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  _buildDashboardCard(
+                    context,
+                    title: "Products",
+                    icon: Icons.shopping_cart,
+                    color: Colors.green,
+                    onTap: () {
+                      GoRouter.of(context).push(RoutersNames.viewProducts);
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  _buildDashboardCard(
+                    context,
+                    title: "Categories",
+                    icon: Icons.category,
+                    color: Colors.orange,
+                    onTap: () {
+                      GoRouter.of(context).push(RoutersNames.viewCategories);
+                    },
+                  ),
+                ],
+              ),
             ),
           ],
         ),
