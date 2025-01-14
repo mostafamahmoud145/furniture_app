@@ -228,7 +228,7 @@ class AddProductPage extends StatelessWidget {
                                           content: SingleChildScrollView(
                                             child: ColorPicker(
                                               pickerColor: isLast
-                                                  ? Colors.red
+                                                  ? Colors.black
                                                   : formCubit.mapToColor(
                                                       formState
                                                           .imageColors[index]),
@@ -278,6 +278,17 @@ class AddProductPage extends StatelessWidget {
                                     );
                                   },
                                 ),
+                              ),
+
+                              /// <--- Version Spacing --->
+                              const SizedBox(height: 20),
+
+                              /// <--- Is Best Seller --->
+                              SwitchListTile(
+                                title: const Text('Is Best Seller'),
+                                value: formState.isBestSeller,
+                                onChanged: (value) =>
+                                    formCubit.updateField(isBestSeller: value),
                               ),
 
                               /// <--- Vertical spacing --->
