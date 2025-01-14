@@ -34,6 +34,7 @@ class SubmitProductButton extends StatelessWidget {
                 mainImage: state.mainImage,
                 optionalImages: state.optionalImages,
                 existingImageUrls: state.existingImageUrls,
+                imageColors: state.imageColors,
               );
             }
           },

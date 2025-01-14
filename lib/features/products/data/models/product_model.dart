@@ -7,6 +7,8 @@ class ProductModel {
   bool isBestSeller;
   String productCode;
   String categoryId;
+  List<Map<String, dynamic>> imageColors; // New property
+
   ProductModel({
     required this.name,
     required this.description,
@@ -16,6 +18,7 @@ class ProductModel {
     required this.isBestSeller,
     required this.productCode,
     required this.categoryId,
+    required this.imageColors,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
@@ -31,6 +34,10 @@ class ProductModel {
       isBestSeller: json['isBestSeller'],
       productCode: json['productCode'],
       categoryId: json['categoryId'],
+      imageColors: (json['imageColors'] as List<dynamic>?)
+              ?.map((e) => e as Map<String, dynamic>)
+              .toList() ??
+          [],
     );
   }
 
@@ -43,7 +50,8 @@ class ProductModel {
       'images': images,
       'isBestSeller': isBestSeller,
       'productCode': productCode,
-      'categoryId': categoryId
+      'categoryId': categoryId,
+      'imageColors': imageColors,
     };
   }
 }

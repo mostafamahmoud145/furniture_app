@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:furniture_app/features/dashboard/categories/view_model/get_categories_cubit/get_categories_cubit.dart';
 import 'package:furniture_app/features/products/data/models/product_model.dart';
 import 'package:furniture_app/features/dashboard/products/data/repos/product_repository.dart';
@@ -31,6 +32,7 @@ class AddProductPage extends StatelessWidget {
               isBestSeller: product?.isBestSeller ?? false,
               productCode: product?.productCode ?? '',
               existingImageUrls: product?.images ?? [],
+              imageColors: product?.imageColors ?? [],
             ),
         ),
 
@@ -92,7 +94,8 @@ class AddProductPage extends StatelessWidget {
                                   onChanged: (value) =>
                                       formCubit.updateField(categoryId: value!),
                                   items: categoryState.categories
-                                      .map((category) => DropdownMenuItem<String>(
+                                      .map((category) =>
+                                          DropdownMenuItem<String>(
                                             value: category.id,
                                             child: Text(category.name),
                                           ))
@@ -111,10 +114,10 @@ class AddProductPage extends StatelessWidget {
                                 const CircularProgressIndicator()
                               else if (categoryState is GetCategoriesError)
                                 const Text('Failed to load categories'),
-              
+
                               /// <--- Vertical spacing --->
                               const SizedBox(height: 20),
-              
+
                               /// <--- Name Field --->
                               TextFormField(
                                 initialValue: formState.name,
@@ -129,7 +132,7 @@ class AddProductPage extends StatelessWidget {
                                   return null;
                                 },
                               ),
-              
+
                               /// <--- Description Field --->
                               TextFormField(
                                 initialValue: formState.description,
@@ -144,7 +147,7 @@ class AddProductPage extends StatelessWidget {
                                   return null;
                                 },
                               ),
-              
+
                               /// <--- Price Field --->
                               TextFormField(
                                 initialValue: formState.price.toString(),
@@ -164,7 +167,7 @@ class AddProductPage extends StatelessWidget {
                                   return null;
                                 },
                               ),
-              
+
                               /// <--- Product Code Field --->
                               TextFormField(
                                 initialValue: formState.productCode,
@@ -179,30 +182,115 @@ class AddProductPage extends StatelessWidget {
                                   return null;
                                 },
                               ),
-              
+
                               /// <--- Vertical spacing --->
                               const SizedBox(height: 20),
-              
+
                               /// <--- Main Image --->
                               const MainProductImage(),
-              
+
                               /// <--- Vertical spacing --->
                               const SizedBox(
                                 height: 20,
                               ),
-              
+
                               /// <--- Optional Images --->
                               const OptionalImagesWidget(),
-              
+
                               /// <--- Vertical spacing --->
                               const SizedBox(height: 20),
-              
+
+                              /// Color Picker Section
+                              const Text(
+                                'Pick Colors:',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+
+                              const SizedBox(height: 20),
+
+                              Wrap(
+                                spacing: 10,
+                                children: List.generate(
+                                  formState.imageColors.length + 1,
+                                  (index) {
+                                    final isLast =
+                                        index == formState.imageColors.length;
+
+                                    Color selectedColor = Colors.black;
+
+                                    return GestureDetector(
+                                      onTap: () => showDialog(
+                                        context: context,
+                                        builder: (_) => AlertDialog(
+                                          title: Text(isLast
+                                              ? 'Pick a Color'
+                                              : 'Edit Color'),
+                                          content: SingleChildScrollView(
+                                            child: ColorPicker(
+                                              pickerColor: isLast
+                                                  ? Colors.red
+                                                  : formCubit.mapToColor(
+                                                      formState
+                                                          .imageColors[index]),
+                                              onColorChanged: (color) {
+                                                selectedColor = color;
+                                              },
+                                            ),
+                                          ),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () {
+                                                final colorMap = formCubit
+                                                    .colorToMap(selectedColor);
+
+                                                if (isLast) {
+                                                  // Add a new color
+                                                  formCubit.addColor(colorMap);
+                                                } else {
+                                                  // Edit an existing color
+                                                  formCubit.updateColor(
+                                                      index, colorMap);
+                                                }
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: const Text('Choose'),
+                                            ),
+                                          ],
+                                        ),
+                                      ).then((onValue) {}),
+                                      child: Container(
+                                        width: 40,
+                                        height: 40,
+                                        decoration: BoxDecoration(
+                                          color: isLast
+                                              ? Colors.grey[300]
+                                              : formCubit.mapToColor(
+                                                  formState.imageColors[index]),
+                                          shape: BoxShape.circle,
+                                          border:
+                                              Border.all(color: Colors.black),
+                                        ),
+                                        child: isLast
+                                            ? const Icon(Icons.add,
+                                                color: Colors.black)
+                                            : null,
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+
+                              /// <--- Vertical spacing --->
+                              const SizedBox(height: 20),
+
                               /// <--- Submit Button --->
                               Center(
-                                child: submissionState is ProductSubmissionLoading
-                                    ? const CircularProgressIndicator()
-                                    : SubmitProductButton(
-                                        formKey: _formKey, product: product),
+                                child:
+                                    submissionState is ProductSubmissionLoading
+                                        ? const CircularProgressIndicator()
+                                        : SubmitProductButton(
+                                            formKey: _formKey,
+                                            product: product),
                               )
                             ],
                           );

@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'dart:ui';
 
 import 'package:bloc/bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -15,6 +16,7 @@ class ProductFormCubit extends Cubit<ProductFormState> {
     required num price,
     required bool isBestSeller,
     required String productCode,
+    required List<Map<String, dynamic>> imageColors,
     List<String> existingImageUrls = const [],
   }) {
     emit(ProductFormState(
@@ -23,6 +25,7 @@ class ProductFormCubit extends Cubit<ProductFormState> {
       price: price,
       isBestSeller: isBestSeller,
       productCode: productCode,
+      imageColors: imageColors,
       existingImageUrls: existingImageUrls,
     ));
   }
@@ -36,6 +39,7 @@ class ProductFormCubit extends Cubit<ProductFormState> {
     String? categoryId,
     Uint8List? mainImage,
     List<Uint8List?>? optionalImages,
+    List<Map<String, dynamic>>? imageColors,
   }) {
     emit(state.copyWith(
       name: name,
@@ -46,7 +50,37 @@ class ProductFormCubit extends Cubit<ProductFormState> {
       categoryId: categoryId,
       mainImage: mainImage,
       optionalImages: optionalImages,
+      imageColors: imageColors,
     ));
+  }
+
+  void addColor(Map<String, dynamic> color) {
+    print("111111111111111111111");
+    state.imageColors.add(color); // Add the new color as a map
+    emit(state.copyWith(imageColors: state.imageColors));
+  }
+
+  Map<String, dynamic> colorToMap(Color color) {
+    return {
+      'r': color.r * 255,
+      'g': color.g * 255,
+      'b': color.b * 255,
+      'a': color.a * 255,
+    };
+  }
+
+  Color mapToColor(Map<String, dynamic> map) {
+    return Color.fromARGB(
+      map['a'].toInt(),
+      map['r'].toInt(),
+      map['g'].toInt(),
+      map['b'].toInt(),
+    );
+  }
+
+  void updateColor(int index, Map<String, dynamic> newColor) {
+    state.imageColors[index] = newColor; // Update the specific color
+    emit(state.copyWith(imageColors: state.imageColors)); // Emit updated state
   }
 
   /// Pick an image and update the state

@@ -26,6 +26,7 @@ class ProductSubmissionCubit extends Cubit<ProductSubmissionState> {
     Uint8List? mainImage,
     List<Uint8List?> optionalImages = const [null, null, null],
     required List<String> existingImageUrls,
+    required List<Map<String, dynamic>> imageColors,
   }) async {
     emit(ProductSubmissionLoading());
 
@@ -80,6 +81,7 @@ class ProductSubmissionCubit extends Cubit<ProductSubmissionState> {
         isBestSeller: isBestSeller,
         productCode: productCode,
         categoryId: categoryId,
+        imageColors: imageColors,
       );
 
       // Determine Add or Update

@@ -10,6 +10,7 @@ class ProductFormState {
   final List<String> existingImageUrls;
   final Uint8List? mainImage;
   final List<Uint8List?> optionalImages;
+  final List<Map<String, dynamic>> imageColors;
 
   ProductFormState({
     this.name = '',
@@ -21,6 +22,7 @@ class ProductFormState {
     this.existingImageUrls = const [],
     this.mainImage,
     this.optionalImages = const [null, null, null],
+    this.imageColors = const [],
   });
 
   ProductFormState copyWith({
@@ -33,6 +35,7 @@ class ProductFormState {
     List<String>? existingImageUrls,
     Uint8List? mainImage,
     List<Uint8List?>? optionalImages,
+    List<Map<String, dynamic>>? imageColors,
   }) {
     return ProductFormState(
       name: name ?? this.name,
@@ -44,6 +47,7 @@ class ProductFormState {
       existingImageUrls: existingImageUrls ?? this.existingImageUrls,
       mainImage: mainImage ?? this.mainImage,
       optionalImages: optionalImages ?? this.optionalImages,
+      imageColors: imageColors ?? this.imageColors,
     );
   }
 }
