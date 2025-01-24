@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furniture_app/features/dashboard/banners/data/model/banner_model.dart';
 import 'package:furniture_app/features/dashboard/banners/view/pages/add_banner_page.dart';
 import 'package:furniture_app/features/dashboard/banners/view/pages/view_banners_page.dart';
 import 'package:furniture_app/features/dashboard/categories/data/model/category_model.dart';
 import 'package:furniture_app/features/dashboard/categories/view/pages/add_category_page.dart';
 import 'package:furniture_app/features/dashboard/categories/view/pages/view_categories_page.dart';
+import 'package:furniture_app/features/dashboard/categories/view_model/get_categories_cubit/get_categories_cubit.dart';
 import 'package:furniture_app/features/dashboard/dashboard_page.dart';
 import 'package:furniture_app/features/dashboard/login_page.dart';
+import 'package:furniture_app/features/home/view/pages/home_page.dart';
+import 'package:furniture_app/features/home/view_model/get_banners_cubit/get_banners_cubit.dart';
+import 'package:furniture_app/features/home/view_model/get_best_seller_products_cubit/get_best_seller_products_cubit.dart';
 import 'package:furniture_app/features/products/data/models/product_model.dart';
 import 'package:furniture_app/features/dashboard/products/view/pages/add_product_page.dart';
 import 'package:furniture_app/features/dashboard/products/view/pages/view_products_page.dart';
+import 'package:furniture_app/features/products/view/pages/products_page.dart';
+import 'package:furniture_app/features/products/view_model/get_all_products_of_category_cubit/get_all_products_of_category_cubit.dart';
 import 'package:furniture_app/route/routes_names.dart';
 import 'package:go_router/go_router.dart';
 
@@ -17,26 +24,43 @@ class RouteConfig {
   GoRouter router = GoRouter(
     initialLocation: '/', // Set initial location if not done
     routes: [
+      GoRoute(
+        path: '/',
+        name: RoutersNames.home,
+        pageBuilder: (context, state) => MaterialPage(
+            child: MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => GetBannersCubit()..getBanners(),
+            ),
+            BlocProvider(
+              create: (context) => GetCategoriesCubit()..getCategories(),
+            ),
+            BlocProvider(
+              create: (context) =>
+                  GetBestSellerProductsCubit()..getBestSellerProducts(),
+            ),
+          ],
+          child: const HomePage(),
+        )),
+      ),
+      GoRoute(
+          path: '/products/:id',
+          name: RoutersNames.products,
+          builder: (context, state) {
+            String? categoryId = state.pathParameters['id'];
+            return BlocProvider(
+              create: (context) => GetAllProductsOfCategoryCubit()
+                ..getAllProductsOfCategory(categoryId: categoryId),
+              child:  ProductsPage(categoryId: categoryId,),
+            );
+          }),
       // GoRoute(
-      //   path: '/',
-      //   name: RoutersNames.home,
-      //   pageBuilder: (context, state) => const MaterialPage(child: HomePage()),
-      // ),
-
-      // GoRoute(
-      //   path: '/',
-      //   name: RoutersNames.products,
-      //   pageBuilder: (context, state) =>
-      //       const MaterialPage(child: ProductsPage()),
-      // ),
-
-      // GoRoute(
-      //   path: '/',
+      //   path: '/ppppppppp',
       //   name: RoutersNames.products,
       //   pageBuilder: (context, state) =>
       //       const MaterialPage(child: ProductDetailsPage()),
       // ),
-
       GoRoute(
           path: '/addProduct',
           name: RoutersNames.addProduct,
@@ -52,7 +76,6 @@ class RouteConfig {
               product: args,
             ));
           }),
-
       GoRoute(
           path: '/addCategory',
           name: RoutersNames.addCategory,
@@ -68,7 +91,6 @@ class RouteConfig {
               category: args,
             ));
           }),
-
       GoRoute(
           path: '/addBanner',
           name: RoutersNames.addBanner,
@@ -84,37 +106,32 @@ class RouteConfig {
               banner: args,
             ));
           }),
-
       GoRoute(
         path: '/viewProducts',
         name: RoutersNames.viewProducts,
         pageBuilder: (context, state) =>
             const MaterialPage(child: ViewProductsPage()),
       ),
-
       GoRoute(
         path: '/viewCategories',
         name: RoutersNames.viewCategories,
         pageBuilder: (context, state) =>
             const MaterialPage(child: ViewCategoriesPage()),
       ),
-
       GoRoute(
         path: '/viewBanners',
         name: RoutersNames.viewBanners,
         pageBuilder: (context, state) =>
             const MaterialPage(child: ViewBannersPage()),
       ),
-
       GoRoute(
         path: '/dashboard',
         name: RoutersNames.dashboard,
         pageBuilder: (context, state) =>
             const MaterialPage(child: DashboardPage()),
       ),
-
       GoRoute(
-        path: '/',
+        path: '/7777',
         name: RoutersNames.login,
         pageBuilder: (context, state) => const MaterialPage(child: LoginPage()),
       ),

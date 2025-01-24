@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:furniture_app/features/products/data/models/product_model.dart';
 import 'package:furniture_app/main.dart';
 
 class ProductItemWidget extends StatelessWidget {
   const ProductItemWidget({
     super.key,
-    required this.imageUrl,
+    required this.product,
   });
 
-  final String imageUrl;
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
@@ -34,12 +35,16 @@ class ProductItemWidget extends StatelessWidget {
                       width: double.infinity,
                     ),
                   ),
-                  Image.asset(
-                    imageUrl,
-                    fit: BoxFit.fitHeight,
+                  FadeInImage.assetNetwork(
+                    image: product.images[0],
+                    fit: BoxFit.contain,
                     width: double.infinity,
-                    height: 400,
-                  ),
+                    placeholder: "assets/icons/loading.gif",
+                    placeholderFit: BoxFit.contain,
+                    imageErrorBuilder: (context, error, stackTrace) {
+                      return const Center(child: Text("Image not found!"));
+                    },
+                  )
                 ],
               ),
             ),
@@ -58,7 +63,7 @@ class ProductItemWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Chairs For Salon",
+                      product.name,
                       maxLines: 2,
                       style: TextStyle(
                         fontSize: getResponsiveFontSize(context, fontSize: 20),
@@ -68,7 +73,7 @@ class ProductItemWidget extends StatelessWidget {
                           .ellipsis, // Optional: Truncate with ellipsis if it still overflows
                     ),
                     Text(
-                      "desc desc desc desc desc desc desc desc desc desc desc",
+                      product.description,
                       maxLines: 1,
                       style: TextStyle(
                         fontSize: getResponsiveFontSize(context, fontSize: 18),
@@ -85,7 +90,7 @@ class ProductItemWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Price: 100\$",
+                          "Price: ${product.price}",
                           maxLines: 1,
                           style: TextStyle(
                             fontSize:

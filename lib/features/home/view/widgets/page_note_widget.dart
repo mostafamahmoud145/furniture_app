@@ -57,7 +57,7 @@ class _PageNoteState extends State<PageNote>
         SlideTransition(
           position: _arrowSlideAnimation,
           child: SvgPicture.asset(
-            "icons/title_arrow.svg",
+            "assets/icons/title_arrow.svg",
             height: (MediaQuery.sizeOf(context).width * 0.09).clamp(60, 90),
             width: (MediaQuery.sizeOf(context).width * 0.04).clamp(60, 90),
           ),

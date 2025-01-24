@@ -34,7 +34,7 @@ class CategoryRepository {
           .whereType<CategoryModel>() // Filters out null items
           .toList();
     } catch (e) {
-      throw Exception('Failed to fetch banners: $e');
+      throw Exception('Failed to fetch categories: $e');
     }
   }
 

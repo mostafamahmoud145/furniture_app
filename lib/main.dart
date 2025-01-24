@@ -7,6 +7,7 @@ import 'firebase_options.dart';
 
 void main() async {
   // setUrlStrategy(PathUrlStrategy());
+  WidgetsFlutterBinding.ensureInitialized();
   await Supabase.initialize(
     url: 'https://xeannllsijuvfdjasizd.supabase.co',
     anonKey:
@@ -18,7 +19,7 @@ void main() async {
 
   runApp(
     DevicePreview(
-      enabled: false,
+      enabled: true,
       builder: (context) => const MainApp(), // Wrap your app
     ),
   );

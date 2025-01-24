@@ -12,6 +12,97 @@ class ProductRepository {
       : _firestore = FirebaseFirestore.instance,
         _supabaseClient = Supabase.instance.client;
 
+  Future<List<ProductModel>> getBestSellerProducts() async {
+    try {
+      final QuerySnapshot<Map<String, dynamic>> snapshot = await _firestore
+          .collection('Products')
+          .where("isBestSeller", isEqualTo: true)
+          .get();
+
+      if (snapshot.docs.isEmpty) {
+        return const []; // Return an empty list if no documents found
+      }
+
+      return snapshot.docs
+          .map((doc) {
+            try {
+              return ProductModel.fromJson(doc.data());
+            } catch (e) {
+              // Skip the item if mapping fails
+              print('Skipping document ${doc.id} due to error: $e');
+              return null;
+            }
+          })
+          .whereType<ProductModel>() // Filters out null items
+          .toList();
+    } catch (e) {
+      throw Exception('Failed to fetch best sellers products: $e');
+    }
+  }
+
+  Future<List<ProductModel>> getAllProducts() async {
+    try {
+      final QuerySnapshot<Map<String, dynamic>> snapshot =
+          await _firestore.collection('Products').get();
+
+      if (snapshot.docs.isEmpty) {
+        return const []; // Return an empty list if no documents found
+      }
+
+      return snapshot.docs
+          .map((doc) {
+            try {
+              return ProductModel.fromJson(doc.data());
+            } catch (e) {
+              // Skip the item if mapping fails
+              print('Skipping document ${doc.id} due to error: $e');
+              return null;
+            }
+          })
+          .whereType<ProductModel>() // Filters out null items
+          .toList();
+    } catch (e) {
+      throw Exception('Failed to fetch best sellers products: $e');
+    }
+  }
+
+  Future<List<ProductModel>> getAllProductsOfCategory(
+      {String? categoryId}) async {
+    try {
+      late QuerySnapshot<Map<String, dynamic>> snapshot;
+      if (categoryId == null) {
+        snapshot = await _firestore
+            .collection('Products')
+            .get();
+      }
+      else{
+        snapshot = await _firestore
+            .collection('Products')
+            .where("categoryId", isEqualTo: categoryId)
+            .get();
+      }
+
+      if (snapshot.docs.isEmpty) {
+        return const []; // Return an empty list if no documents found
+      }
+
+      return snapshot.docs
+          .map((doc) {
+            try {
+              return ProductModel.fromJson(doc.data());
+            } catch (e) {
+              // Skip the item if mapping fails
+              print('Skipping document ${doc.id} due to error: $e');
+              return null;
+            }
+          })
+          .whereType<ProductModel>() // Filters out null items
+          .toList();
+    } catch (e) {
+      throw Exception('Failed to fetch best sellers products: $e');
+    }
+  }
+
   /// Add a new product to Firestore
   Future<void> addProduct(ProductModel product) async {
     try {
@@ -61,7 +152,7 @@ class ProductRepository {
     }
   }
 
-    /// Upload an image to Supabase Storage
+  /// Upload an image to Supabase Storage
   Future<String?> uploadImage(Uint8List fileBytes, String fileName) async {
     try {
       // Specify the bucket name where the images will be stored

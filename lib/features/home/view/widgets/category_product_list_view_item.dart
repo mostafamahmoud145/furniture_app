@@ -1,14 +1,15 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:furniture_app/features/products/data/models/product_model.dart';
 import 'package:furniture_app/main.dart';
 
 class CategoryProductItemWidget extends StatelessWidget {
   const CategoryProductItemWidget({
     super.key,
-    required this.imageUrl,
+    required this.product,
   });
 
-  final String imageUrl;
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +30,15 @@ class CategoryProductItemWidget extends StatelessWidget {
                   color: Colors.white,
                 ),
                 width: double.infinity,
-                child: Image.network(
-                  "https://xeannllsijuvfdjasizd.supabase.co/storage/v1/object/sign/banner/1.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJiYW5uZXIvMS5wbmciLCJpYXQiOjE3MzYzNjI1NTUsImV4cCI6NjM5MzAxMTMzODU1NX0.4GTY5DIZnrG5z1oSG3VsvN7Qjzm_9K_hUht5UPtiL-8&t=2025-01-08T18%3A55%3A55.931Z",
+                child: FadeInImage.assetNetwork(
+                  image: product.images[0],
+                  fit: BoxFit.contain,
+                  width: double.infinity,
+                  placeholder: "assets/icons/loading.gif",
+                  placeholderFit: BoxFit.contain,
+                  imageErrorBuilder: (context, error, stackTrace) {
+                    return const Center(child: Text("Image not found!"));
+                  },
                 ),
               ),
             ),
@@ -49,7 +57,7 @@ class CategoryProductItemWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     AutoSizeText(
-                      "Chairs For Salon",
+                      product.name,
                       maxLines: 2,
                       style: TextStyle(
                         fontSize: getResponsiveFontSize(context, fontSize: 18),
@@ -60,7 +68,7 @@ class CategoryProductItemWidget extends StatelessWidget {
                           .ellipsis, // Optional: Truncate with ellipsis if it still overflows
                     ),
                     Text(
-                      "desc desc desc desc desc desc desc desc desc desc desc",
+                      product.description,
                       maxLines: 1,
                       style: TextStyle(
                         fontSize: getResponsiveFontSize(context, fontSize: 16),
@@ -77,7 +85,7 @@ class CategoryProductItemWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Price: 100\$",
+                          "Price: ${product.price}",
                           maxLines: 1,
                           style: TextStyle(
                             fontSize:

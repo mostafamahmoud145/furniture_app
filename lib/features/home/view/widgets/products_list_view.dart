@@ -1,24 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:furniture_app/features/home/view/widgets/product_list_view_item.dart';
+import 'package:furniture_app/features/products/data/models/product_model.dart';
 
 class ProductsListView extends StatelessWidget {
-  const ProductsListView({super.key});
+  const ProductsListView({super.key, required this.products});
+
+  final List<ProductModel> products;
 
   @override
   Widget build(BuildContext context) {
-    List<String> images = [
-      "images/1.png",
-      "images/2.png",
-      "images/3.png",
-      "images/4.png",
-      "images/5.png",
-      "images/6.png",
-      "images/7.png",
-      "images/8.png",
-      "images/9.png",
-      "images/10.png",
-      "images/11.png",
-    ];
     return LayoutBuilder(builder: (context, constraints) {
       double width = constraints.maxWidth;
       int crossAxisCount;
@@ -35,10 +25,10 @@ class ProductsListView extends StatelessWidget {
       return GridView.builder(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
-        itemCount: 11,
+        itemCount: products.length,
         itemBuilder: (context, index) {
           return ProductItemWidget(
-            imageUrl: images[index],
+            product: products[index],
           );
         },
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

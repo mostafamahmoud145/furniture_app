@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:furniture_app/features/dashboard/categories/data/model/category_model.dart';
 import 'package:furniture_app/features/home/view/widgets/category_list_view_item.dart';
 
 class CategoriesListView extends StatefulWidget {
-  const CategoriesListView({super.key});
+  const CategoriesListView({super.key, required this.categories});
+
+  final List<CategoryModel> categories;
 
   @override
   State<CategoriesListView> createState() => _CategoriesListViewState();
@@ -45,7 +48,7 @@ class _CategoriesListViewState extends State<CategoriesListView>
       return GridView.builder(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
-        itemCount: 4,
+        itemCount: widget.categories.length,
         itemBuilder: (context, index) {
           return AnimatedBuilder(
             animation: _animationController,
@@ -72,7 +75,9 @@ class _CategoriesListViewState extends State<CategoriesListView>
                 ),
               );
             },
-            child: const CategoryItemWidget(),
+            child: CategoryItemWidget(
+              category: widget.categories[index],
+            ),
           );
         },
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class AutoImageSlider extends StatefulWidget {
@@ -103,14 +101,15 @@ class _ImageSlider extends StatelessWidget {
         controller: _pageController,
         itemCount: widget.imageUrls.length,
         itemBuilder: (context, index) {
-          return CachedNetworkImage(
-            imageUrl: widget.imageUrls[index],
+          return FadeInImage.assetNetwork(
+            image: widget.imageUrls[index],
             fit: BoxFit.cover,
             width: double.infinity,
-            placeholder: (context, url) => const Center(
-              child: CircularProgressIndicator(),
-            ),
-            errorWidget: (context, url, error) => const Icon(Icons.error),
+            placeholder: "assets/icons/loading.gif",
+            placeholderFit: BoxFit.scaleDown,
+            imageErrorBuilder: (context, error, stackTrace) {
+              return const Center(child: Text("Image not found!"));
+            },
           );
         },
       ),
