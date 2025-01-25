@@ -32,12 +32,11 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: [
             /// <--- AppBar --->
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  vertical: 15,
-                  horizontal:
-                      (MediaQuery.sizeOf(context).width * 0.025).clamp(20, 50)),
-              child: const CustomAppBar(),
+            const Padding(
+              padding: EdgeInsets.only(
+                bottom: 0,
+              ),
+              child: CustomAppBar(),
             ),
 
             /// <--- Image Slider --->
@@ -170,19 +169,19 @@ class _HomePageState extends State<HomePage> {
                                 : 20,
                           ),
 
-                          const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "View All",
-                                style: TextStyle(fontSize: 30),
-                              ),
-                              Icon(
-                                Icons.arrow_right_alt_outlined,
-                                size: 30,
-                              )
-                            ],
-                          )
+                          // const Row(
+                          //   mainAxisAlignment: MainAxisAlignment.center,
+                          //   children: [
+                          //     Text(
+                          //       "View All",
+                          //       style: TextStyle(fontSize: 30),
+                          //     ),
+                          //     Icon(
+                          //       Icons.arrow_right_alt_outlined,
+                          //       size: 30,
+                          //     )
+                          //   ],
+                          // )
                         ],
                       )),
 

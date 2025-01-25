@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:furniture_app/features/products/data/models/product_model.dart';
 import 'package:furniture_app/main.dart';
+import 'package:go_router/go_router.dart';
 
 class ProductItemWidget extends StatelessWidget {
   const ProductItemWidget({
@@ -13,7 +14,9 @@ class ProductItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        GoRouter.of(context).push("/productDetails/${product.id}");
+      },
       child: Ink(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
@@ -89,17 +92,23 @@ class ProductItemWidget extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          "Price: ${product.price}",
-                          maxLines: 1,
-                          style: TextStyle(
-                            fontSize:
-                                getResponsiveFontSize(context, fontSize: 18),
-                            fontWeight: FontWeight.w600,
+                        Flexible(
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              "Code: ${product.productCode}",
+                              maxLines: 1,
+                              style: TextStyle(
+                                fontSize: getResponsiveFontSize(context,
+                                    fontSize: 18),
+                                fontWeight: FontWeight.w600,
+                              ),
+                              overflow: TextOverflow
+                                  .ellipsis, // Optional: Truncate with ellipsis if it still overflows
+                            ),
                           ),
-                          overflow: TextOverflow
-                              .ellipsis, // Optional: Truncate with ellipsis if it still overflows
                         ),
+                        const SizedBox(width: 10),
                         Container(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 5),

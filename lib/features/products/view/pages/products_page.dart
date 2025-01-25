@@ -5,8 +5,9 @@ import 'package:furniture_app/features/home/view/widgets/footer.dart';
 import 'package:furniture_app/main.dart';
 
 class ProductsPage extends StatefulWidget {
-  const ProductsPage({super.key, this.categoryId});
+  const ProductsPage({super.key, this.categoryId, this.categoryName});
   final String? categoryId;
+  final String? categoryName;
 
   @override
   State<ProductsPage> createState() => _ProductsPageState();
@@ -31,6 +32,8 @@ class _ProductsPageState extends State<ProductsPage> {
           SliverToBoxAdapter(
             child: Column(
               children: [
+                /// <--- AppBar --->
+                const CustomAppBar(),
                 Padding(
                   padding: EdgeInsets.symmetric(
                       vertical: 15,
@@ -39,12 +42,6 @@ class _ProductsPageState extends State<ProductsPage> {
                   child: Center(
                     child: Column(
                       children: [
-                        /// <--- AppBar --->
-                        const CustomAppBar(),
-
-                        /// <--- Vertical spacing --->
-                        const SizedBox(height: 20),
-
                         /// <--- What Are You Looking For Text --->
                         Text(
                           "What Are You Looking For?",
@@ -70,50 +67,22 @@ class _ProductsPageState extends State<ProductsPage> {
                         /// <--- Vertical spacing --->
                         const SizedBox(height: 40),
 
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Category: Chairs",
+                        if (widget.categoryId != null) ...[
+                          Align(
+                            alignment: AlignmentDirectional.centerStart,
+                            child: Text(
+                              "Category: ${widget.categoryName}",
                               style: TextStyle(
                                 fontSize: getResponsiveFontSize(context,
                                     fontSize: 24),
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            Material(
-                              color: Colors.transparent,
-                              child: Container(
-                                height: 50,
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  color:
-                                      const Color.fromRGBO(245, 246, 250, 1.0),
-                                ),
-                                child: Row(
-                                  children: [
-                                    const Icon(Icons.sort),
-                                    const SizedBox(
-                                      width: 8,
-                                    ),
-                                    Text(
-                                      "sort by",
-                                      style: TextStyle(
-                                        fontSize: getResponsiveFontSize(context,
-                                            fontSize: 18),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
+                          ),
 
-                        /// <--- Vertical spacing --->
-                        const SizedBox(height: 40),
+                          /// <--- Vertical spacing --->
+                          const SizedBox(height: 40),
+                        ]
                       ],
                     ),
                   ),

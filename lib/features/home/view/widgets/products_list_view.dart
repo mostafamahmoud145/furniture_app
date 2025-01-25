@@ -14,9 +14,9 @@ class ProductsListView extends StatelessWidget {
       int crossAxisCount;
       if (width <= 450) {
         crossAxisCount = 1;
-      } else if (width <= 770) {
+      } else if (width <= 900) {
         crossAxisCount = 2;
-      } else if (width <= 1000) {
+      } else if (width <= 1200) {
         crossAxisCount = 3;
       } else {
         crossAxisCount = 4;

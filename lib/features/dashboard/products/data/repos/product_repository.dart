@@ -66,16 +66,27 @@ class ProductRepository {
     }
   }
 
+  Future<ProductModel> getProduct({required String productId}) async {
+    try {
+      final DocumentSnapshot snapshot =
+          await _firestore.collection('Products').doc(productId).get();
+
+      ProductModel product =
+          ProductModel.fromJson(snapshot.data() as Map<String, dynamic>);
+
+      return product;
+    } catch (e) {
+      throw Exception('Failed to fetch product with id $productId: $e');
+    }
+  }
+
   Future<List<ProductModel>> getAllProductsOfCategory(
       {String? categoryId}) async {
     try {
       late QuerySnapshot<Map<String, dynamic>> snapshot;
       if (categoryId == null) {
-        snapshot = await _firestore
-            .collection('Products')
-            .get();
-      }
-      else{
+        snapshot = await _firestore.collection('Products').get();
+      } else {
         snapshot = await _firestore
             .collection('Products')
             .where("categoryId", isEqualTo: categoryId)

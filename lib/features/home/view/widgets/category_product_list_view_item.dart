@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:furniture_app/features/products/data/models/product_model.dart';
 import 'package:furniture_app/main.dart';
+import 'package:go_router/go_router.dart';
 
 class CategoryProductItemWidget extends StatelessWidget {
   const CategoryProductItemWidget({
@@ -14,7 +15,9 @@ class CategoryProductItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        GoRouter.of(context).push("/productDetails/${product.id}");
+      },
       child: Ink(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
@@ -84,17 +87,25 @@ class CategoryProductItemWidget extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          "Price: ${product.price}",
-                          maxLines: 1,
-                          style: TextStyle(
-                            fontSize:
-                                getResponsiveFontSize(context, fontSize: 18),
-                            fontWeight: FontWeight.w600,
+                        Flexible(
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              "Code: ${product.productCode}",
+                              maxLines: 1,
+                              style: TextStyle(
+                                fontSize: getResponsiveFontSize(context,
+                                    fontSize: 18),
+                                fontWeight: FontWeight.w600,
+                              ),
+                              // minFontSize: 10, // Minimum font size to shrink to
+                              overflow: TextOverflow
+                                  .ellipsis, // Optional: Truncate with ellipsis if it still overflows
+                            ),
                           ),
-                          // minFontSize: 10, // Minimum font size to shrink to
-                          overflow: TextOverflow
-                              .ellipsis, // Optional: Truncate with ellipsis if it still overflows
+                        ),
+                        SizedBox(
+                          width: 10,
                         ),
                         Container(
                           padding:

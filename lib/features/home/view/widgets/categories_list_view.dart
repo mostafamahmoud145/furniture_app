@@ -37,12 +37,16 @@ class _CategoriesListViewState extends State<CategoriesListView>
       double width = constraints.maxWidth;
       int crossAxisCount;
 
-      if (width <= 775) {
+      if (width <= 550) {
         crossAxisCount = 2;
-      } else if (width <= 1000) {
+      } else if (width <= 650) {
         crossAxisCount = 3;
-      } else {
+      } else if (width <= 900) {
         crossAxisCount = 4;
+      } else if (width <= 1200) {
+        crossAxisCount = 5;
+      } else {
+        crossAxisCount = 6;
       }
 
       return GridView.builder(

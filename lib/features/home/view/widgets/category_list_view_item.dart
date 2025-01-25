@@ -33,8 +33,11 @@ class _CategoryItemWidgetState extends State<CategoryItemWidget> {
         Expanded(
           child: GestureDetector(
             onTap: () {
-              GoRouter.of(context)
-                  .push(RoutersNames.products + "/${widget.category.id}");
+              GoRouter.of(context).pushNamed(RoutersNames.products,
+                  pathParameters: {
+                    "id": widget.category.id,
+                    "categoryName": widget.category.name
+                  });
             },
             child: MouseRegion(
               onEnter: (_) => _handleHover(true),
@@ -47,8 +50,9 @@ class _CategoryItemWidgetState extends State<CategoryItemWidget> {
                       borderRadius: BorderRadius.circular(10),
                       child: FadeInImage.assetNetwork(
                         image: widget.category.imageUrl,
-                        fit: BoxFit.cover,
-                        width: double.infinity,
+                        fit: BoxFit.fill,
+                        // width: double.infinity,
+                        height: 150,
                         placeholder: "assets/icons/loading.gif",
                         placeholderFit: BoxFit.scaleDown,
                         imageErrorBuilder: (context, error, stackTrace) {
@@ -63,8 +67,11 @@ class _CategoryItemWidgetState extends State<CategoryItemWidget> {
                     Positioned.fill(
                       child: InkWell(
                         onTap: () {
-                          GoRouter.of(context).push(
-                              RoutersNames.products + "/${widget.category.id}");
+                          GoRouter.of(context).pushNamed(RoutersNames.products,
+                              pathParameters: {
+                                "id": widget.category.id,
+                                "categoryName": widget.category.name
+                              });
                         },
                         borderRadius: BorderRadius.circular(10),
                         child: Container(
@@ -95,9 +102,9 @@ class _CategoryItemWidgetState extends State<CategoryItemWidget> {
         ),
         AutoSizeText(
           widget.category.name,
-          maxLines: 2,
+          maxLines: 1,
           style: const TextStyle(
-            fontSize: 18,
+            fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
           minFontSize: 12,

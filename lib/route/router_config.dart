@@ -15,8 +15,10 @@ import 'package:furniture_app/features/home/view_model/get_best_seller_products_
 import 'package:furniture_app/features/products/data/models/product_model.dart';
 import 'package:furniture_app/features/dashboard/products/view/pages/add_product_page.dart';
 import 'package:furniture_app/features/dashboard/products/view/pages/view_products_page.dart';
+import 'package:furniture_app/features/products/view/pages/product_details_page.dart';
 import 'package:furniture_app/features/products/view/pages/products_page.dart';
 import 'package:furniture_app/features/products/view_model/get_all_products_of_category_cubit/get_all_products_of_category_cubit.dart';
+import 'package:furniture_app/features/products/view_model/get_product_cubit/get_product_cubit.dart';
 import 'package:furniture_app/route/routes_names.dart';
 import 'package:go_router/go_router.dart';
 
@@ -45,22 +47,32 @@ class RouteConfig {
         )),
       ),
       GoRoute(
-          path: '/products/:id',
+          path: '/products/:id/:categoryName',
           name: RoutersNames.products,
           builder: (context, state) {
             String? categoryId = state.pathParameters['id'];
+            String? categoryName = state.pathParameters['categoryName'];
+
             return BlocProvider(
               create: (context) => GetAllProductsOfCategoryCubit()
                 ..getAllProductsOfCategory(categoryId: categoryId),
-              child:  ProductsPage(categoryId: categoryId,),
+              child: ProductsPage(
+                categoryName: categoryName,
+                categoryId: categoryId,
+              ),
             );
           }),
-      // GoRoute(
-      //   path: '/ppppppppp',
-      //   name: RoutersNames.products,
-      //   pageBuilder: (context, state) =>
-      //       const MaterialPage(child: ProductDetailsPage()),
-      // ),
+      GoRoute(
+          path: '/productDetails/:id',
+          name: RoutersNames.productDetails,
+          builder: (context, state) {
+            String productId = state.pathParameters['id']!;
+            return BlocProvider(
+              create: (context) =>
+                  GetProductCubit()..getProduct(productId: productId),
+              child: const ProductDetailsPage(),
+            );
+          }),
       GoRoute(
           path: '/addProduct',
           name: RoutersNames.addProduct,
